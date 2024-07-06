@@ -72,7 +72,8 @@ export async function POST(req: NextRequest) {
 
             const { error } = await resend.emails.send({
                 from: "CaseCobra <onboarding@resend.dev>",
-                to: [event.data.object.customer_details.email],
+                // to: [event.data.object.customer_details.email],
+                to: "abunnor8@gmail.com",
                 subject: "Thanks for your order!",
                 react: OrderReceivedEmail({
                     orderId,
