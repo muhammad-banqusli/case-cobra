@@ -70,14 +70,14 @@ export async function POST(req: NextRequest) {
                 },
             });
 
-            await resend.emails.send({
-                from: "CaseCobra <abunnor8@gmail.com>",
+            const { error } = await resend.emails.send({
+                from: "CaseCobra <hello@joshtriedcoding.com>",
                 to: [event.data.object.customer_details.email],
                 subject: "Thanks for your order!",
                 react: OrderReceivedEmail({
                     orderId,
                     orderDate: updatedOrder.createdAt.toLocaleDateString(),
-                    //@ts-ignore
+                    // @ts-ignore
                     shippingAddress: {
                         name: session.customer_details!.name!,
                         city: shippingAddress!.city!,
@@ -88,6 +88,9 @@ export async function POST(req: NextRequest) {
                     },
                 }),
             });
+            if (error) {
+                console.error(error);
+            }
         }
 
         return NextResponse.json({ result: event, ok: true });
